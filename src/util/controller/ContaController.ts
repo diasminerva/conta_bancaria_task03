@@ -54,4 +54,48 @@ export class ContaController {
         }
         return null;
     }
+
+    // 💸 SACAR
+    public sacar(numero: number, valor: number): void {
+        let conta = this.buscarNoArray(numero);
+
+        if (conta != null) {
+            if (conta.sacar(valor)) {
+                console.log("Saque realizado com sucesso!");
+            } else {
+                console.log("Saldo insuficiente!");
+            }
+        } else {
+            console.log("Conta não encontrada!");
+        }
+    }
+
+    // 💰 DEPOSITAR
+    public depositar(numero: number, valor: number): void {
+        let conta = this.buscarNoArray(numero);
+
+        if (conta != null) {
+            conta.depositar(valor);
+            console.log("Depósito realizado com sucesso!");
+        } else {
+            console.log("Conta não encontrada!");
+        }
+    }
+
+    // 🔁 TRANSFERIR
+    public transferir(numeroOrigem: number, numeroDestino: number, valor: number): void {
+        let contaOrigem = this.buscarNoArray(numeroOrigem);
+        let contaDestino = this.buscarNoArray(numeroDestino);
+
+        if (contaOrigem != null && contaDestino != null) {
+            if (contaOrigem.sacar(valor)) {
+                contaDestino.depositar(valor);
+                console.log("Transferência realizada com sucesso!");
+            } else {
+                console.log("Saldo insuficiente!");
+            }
+        } else {
+            console.log("Conta não encontrada!");
+        }
+    }
 }
